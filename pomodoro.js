@@ -1,11 +1,36 @@
 var time = 25 * 60;
 var timerInterval;
+var currentMode = "pomodoro";
+var MODES = {
+    pomodoro: 25,
+    short: 5,
+    long: 15
+}
+
+document.querySelectorAll("#modes button")
+    .forEach(function(button) {
+        button.addEventListener('click', handleModeButtons);
+    });
+
+function handleModeButtons(event) {
+    switchMode(event.target.dataset.modeId);
+    
+}
+
+function switchMode (mode) {
+    currentMode = mode;
+    resetTimer();
+}
 
 function startTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
     timerInterval = setInterval(updateTimer, 1000);
 }
-function pauseTime() {
+function pauseTimer() {
     clearInterval(timerInterval);
+    timerInterval = null;
 }
 
 function skipTimer() {
@@ -13,6 +38,28 @@ function skipTimer() {
 }
 
 function updateTimer() {
+    if (time <= 0) {
+        clearInterval(timerInterval);
+        return;
+    }
+
+    var minutes = Math.floor(time/60);
+    var seconds = time % 60;
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    } 
+
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    } 
+
+    document.getElementById("timer").textContent = minutes + ":" + seconds;
     time -= 1;
-    console.log(time);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    time = MODES[currentMode] * 60;
+    updateTimer();
 }
