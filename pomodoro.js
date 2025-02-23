@@ -6,6 +6,7 @@ var MODES = {
     short: 5,
     long: 15
 }
+var totalBreaks = 0;
 
 document.querySelectorAll("#modes button")
     .forEach(function(button) {
@@ -55,7 +56,24 @@ function updateTimer() {
     } 
 
     document.getElementById("timer").textContent = minutes + ":" + seconds;
+    if (time <= 0) {
+        alert("Time's Up!")
+        nextMode();
+    }
     time -= 1;
+}
+
+function nextMode() {
+    if (currentMode == "pomodoro") {
+        totalBreaks += 1;
+        if (totalBreaks % 4 == 0) {
+            switchMode("long");
+        } else {
+            switchMode("short");
+        }
+    } else {
+        switchMode("pomodoro");
+    }
 }
 
 function resetTimer() {
