@@ -35,6 +35,11 @@ function updateControlButtons(isRunning) {
 function switchMode (mode) {
     currentMode = mode;
     document.documentElement.style.backgroundColor = "var(--" + mode + ")";
+    document.querySelectorAll("#modes button")
+        .forEach(elem => {
+            elem.classList.remove("active")
+        });
+    document.querySelector(`button[data-mode-id="${mode}"]`).classList.add('active');
     resetTimer();
 }
 
