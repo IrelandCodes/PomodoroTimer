@@ -18,6 +18,20 @@ function handleModeButtons(event) {
     
 }
 
+function updateControlButtons(isRunning) {
+    var start_button = document.querySelector(".timer-control.start");
+    var pause_button = document.querySelector(".timer-control.pause");
+
+    if (isRunning) {
+        start_button.disabled = true;
+        pause_button.disabled = false;
+    } else {
+        start_button.disabled = false;
+        pause_button.disabled = true;
+    }
+
+}
+
 function switchMode (mode) {
     currentMode = mode;
     resetTimer();
@@ -28,10 +42,12 @@ function startTimer() {
         clearInterval(timerInterval);
     }
     timerInterval = setInterval(updateTimer, 1000);
+    updateControlButtons(true);
 }
 function pauseTimer() {
     clearInterval(timerInterval);
     timerInterval = null;
+    updateControlButtons(false);
 }
 
 function skipTimer() {
@@ -57,6 +73,7 @@ function updateTimer() {
 
     document.getElementById("timer").textContent = minutes + ":" + seconds;
     if (time <= 0) {
+        pauseTimer();
         alert("Time's Up!")
         nextMode();
     }
@@ -80,4 +97,5 @@ function resetTimer() {
     clearInterval(timerInterval);
     time = MODES[currentMode] * 60;
     updateTimer();
+    updateControlButtons(false);
 }
