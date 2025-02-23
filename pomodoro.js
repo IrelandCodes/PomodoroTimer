@@ -34,6 +34,7 @@ function updateControlButtons(isRunning) {
 
 function switchMode (mode) {
     currentMode = mode;
+    document.documentElement.style.backgroundColor = "var(--" + mode + ")";
     resetTimer();
 }
 

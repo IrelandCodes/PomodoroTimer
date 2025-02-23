@@ -1,0 +1,21 @@
+:root {
+    --pomodoro: #af3f3f;
+    --short: #3fa4af;
+    --long: #73af3f;
+}
+
+html {
+    text-align: center;
+    background-color: var(--pomodoro);
+    color: white;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    flex-direction: column;
+    transition: background-color 0.5s ease;
+    
+
+}
