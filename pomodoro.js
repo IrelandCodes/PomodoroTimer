@@ -7,6 +7,7 @@ var MODES = {
     long: 15
 }
 var totalBreaks = 0;
+const alarmSound = new Audio('bell.mp3');
 
 document.querySelectorAll("#modes button")
     .forEach(function(button) {
@@ -61,11 +62,6 @@ function skipTimer() {
 }
 
 function updateTimer() {
-    if (time <= 0) {
-        clearInterval(timerInterval);
-        return;
-    }
-
     var minutes = Math.floor(time/60);
     var seconds = time % 60;
 
@@ -78,9 +74,14 @@ function updateTimer() {
     } 
 
     document.getElementById("timer").textContent = minutes + ":" + seconds;
+    document.title = `${minutes}:${seconds} - Pomodoro`
+    
     if (time <= 0) {
         pauseTimer();
-        alert("Time's Up!")
+        alarmSound.play();
+        alert("Time's Up!");
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
         nextMode();
     }
     time -= 1;
