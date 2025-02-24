@@ -1,7 +1,7 @@
 :root {
-    --pomodoro: #af3f3f;
-    --short: #3fa4af;
-    --long: #73af3f;
+    --pomodoro: #007AFF;
+    --short: #1ABC9C;
+    --long: #2C3E50;
 }
 
 html {
@@ -87,8 +87,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
 }
