@@ -6,6 +6,11 @@ var MODES = {
     short: 5,
     long: 15
 }
+const DEFAULT_MODES = {
+    pomodoro: 25,
+    short: 5,
+    long: 15
+}
 var totalBreaks = 0;
 const alarmSound = new Audio('bell.mp3');
 
@@ -13,6 +18,25 @@ document.querySelectorAll("#modes button")
     .forEach(function(button) {
         button.addEventListener('click', handleModeButtons);
     });
+
+
+document.querySelectorAll("#duration-control input")
+    .forEach(function(input) {
+        input.addEventListener('change', durationControlHandler);
+        input.value = '';
+    })
+    
+function durationControlHandler(event) {
+    var value = event.target.value.trim();
+    var durationId = event.target.dataset.durationId;
+
+    if (value != '' && !isNaN(value) && Number.isInteger(parseFloat(value)) && parseInt(value) != 0) {
+        MODES[durationId] = parseInt(value);
+    } else {
+        MODES[durationId] = DEFAULT_MODES[durationId];
+    }
+    resetTimer();
+}
 
 function handleModeButtons(event) {
     switchMode(event.target.dataset.modeId);
